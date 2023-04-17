@@ -1,5 +1,5 @@
 <?php
-
+require_once 'banco.php';
 echo "Arquivo de funcoes aqui \n";
 function exibirMensagem(string $mensagem) {
     echo $mensagem. "\n";
@@ -15,9 +15,9 @@ function sacar(array $conta,float $valorSacar) {
 }
 
 function depositar(array $conta,float $valorDepositar) {
-    if($valorDepositar< $conta['saldo']) {
-        echo "nao foi possivel depositar o valor";
-    } else {
+    if($conta['saldo'] + $valorDepositar < 0) {
+        echo"nao foi possivel depositar";
+    } else if($valorDepositar< $conta['saldo'] || $valorDepositar> $conta['saldo']) {
         $conta['saldo'] +=$valorDepositar;
     }
     return $conta;
@@ -27,4 +27,9 @@ function titularMaiuscula(array &$conta) { // recebendo a referencia e nao a opi
     $conta['titular'] = strtoupper($conta['titular']);
 
 }
+
+/*function exibirConta(array $conta) {
+    $html = "<li> Titular: {$conta['titular']} Saldo: {$conta['saldo']} </li>";
+    echo "$html";
+}*/
 ?>
